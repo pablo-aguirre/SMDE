@@ -1,0 +1,103 @@
+---
+title: "Lab1"
+output: html_document
+---
+
+1.  Import data set "cars" from .csv file to R.
+
+    ```{r}
+    cars <- read.csv("cars.csv")
+    head(cars)
+    ```
+
+2.  Summarize the data. How many quantitative and qualitative variables are there in the data set?
+
+    ```{r}
+
+    summary(cars)
+    ```
+
+    ```{r}
+    summary(cars)
+    ```
+
+    `brand` and `cylinders` are quantitative variables
+
+    ```{r}
+    cars = read.csv("cars.csv", stringsAsFactors = TRUE)
+    summary(cars)
+
+    cars$brand = as.factor(cars$brand)
+    cars$cylinders = as.factor(cars$cylinders)
+
+    summary(cars)
+    ```
+
+<!-- -->
+
+3.  Visualize the distribution of the following variables by using a proper chart and interpret the findings:
+
+    -   year
+
+    -   brand
+
+    -   mpg
+
+    -   hp
+
+    -   weight
+
+    ```{r}
+    summary(cars$year)
+    ```
+
+    ```{r}
+    cars$years = as.factor(cars$year)
+
+    barplot(summary(cars$years), xlab = "year")
+    ```
+
+    ```{r}
+    barplot(summary((cars$brand)), xlab = "Brand")
+    ```
+
+    ```{r}
+    hist(cars$mpg, xlab = "mpg")
+    ```
+
+    ```{r}
+    hist(cars$hp, xlab = "hp")
+    ```
+
+    ```{r}
+    hist(cars$weightlbs, xlab = "weight")
+    ```
+
+4.  Construct a descriptive statistics table with mean, median and standard deviation for the variables mpg, hp and weight.
+
+    ```{r}
+    #str(cars)
+
+    for (i in 2:6) {
+      cars[,i] = as.numeric(cars[,i])
+    }
+
+    #str(cars)
+
+    apply(cars[,c(1,4,5)], 2, mean, na.rm = TRUE)
+
+    avr = apply(cars[,2:6], 2, mean, na.rm = TRUE)
+    med = apply(cars[,2:6], 2, median, na.rm = TRUE)
+    std = apply(cars[,2:6], 2, sd, na.rm = TRUE)
+
+    tab = rbind.data.frame(avr, med, std)
+    rownames(tab) = c("mean", "median", "std. dev.")
+    colnames(tab) = names(avr)
+    tab
+    ```
+
+5.  Compare the distribution of weight across car brands. Visualize it by using a box plot.
+
+    ```{r}
+    boxplot(cars$weightlbs ~ cars$brand, xlab = "Weight across car brans")
+    ```
